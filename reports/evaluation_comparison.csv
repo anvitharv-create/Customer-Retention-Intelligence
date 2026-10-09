@@ -1,0 +1,8 @@
+Metric,Original_Test,Temporal_Test,Difference_Temporal_Minus_Original
+Accuracy,0.6617,0.643,-0.0187
+Balanced_Accuracy,0.6884,0.6729,-0.0155
+Precision,0.5692,0.5532,-0.016
+Recall,0.8793,0.8884,0.0091
+F1_Score,0.6911,0.6818,-0.0093
+ROC_AUC,0.7517,0.7426,-0.0091
+PR_AUC,0.6373,0.6303,-0.007

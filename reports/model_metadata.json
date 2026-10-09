@@ -1,0 +1,22 @@
+{
+    "model": "Logistic Regression",
+    "decision_threshold": 0.4,
+    "target_definition": "1 = no purchase during the defined prediction window",
+    "threshold_selection": "Maximum validation F1-score among tested thresholds",
+    "model_selection": "Highest validation ROC-AUC",
+    "random_state": 42,
+    "split_sizes": {
+        "training": 2022,
+        "validation": 674,
+        "testing": 674
+    },
+    "features": [
+        "Frequency",
+        "Monetary",
+        "Total_Quantity",
+        "Unique_Products",
+        "Active_Days",
+        "Recency",
+        "Average_Order_Value"
+    ]
+}

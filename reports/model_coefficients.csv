@@ -1,0 +1,8 @@
+Feature,Coefficient,Absolute_Importance,Direction
+Active_Days,-1.2820326490187768,1.2820326490187768,Lower predicted churn
+Unique_Products,-0.5132372723776114,0.5132372723776114,Lower predicted churn
+Monetary,-0.39138018685935805,0.39138018685935805,Lower predicted churn
+Average_Order_Value,0.32385034898761267,0.32385034898761267,Higher predicted churn
+Recency,0.2749401380097704,0.2749401380097704,Higher predicted churn
+Total_Quantity,0.13866134172410788,0.13866134172410788,Higher predicted churn
+Frequency,0.018554268039708346,0.018554268039708346,Higher predicted churn

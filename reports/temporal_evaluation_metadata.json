@@ -1,0 +1,45 @@
+{
+    "dataset_path": "data\\processed\\online_retail_cleaned.csv",
+    "dataset_start": "2010-12-01 08:26:00",
+    "dataset_end": "2011-12-09 12:50:00",
+    "evaluation_type": "Temporal snapshot evaluation",
+    "customer_ids_may_appear_in_multiple_snapshots": true,
+    "prediction_windows_are_sequential": true,
+    "model_selection_metric": "Validation ROC-AUC",
+    "threshold_selection_metric": "Validation F1-score",
+    "test_used_for_model_selection": false,
+    "snapshots": [
+        {
+            "name": "training",
+            "cutoff": "2011-03-10",
+            "prediction_start": "2011-03-11",
+            "prediction_end": "2011-06-08"
+        },
+        {
+            "name": "validation",
+            "cutoff": "2011-06-09",
+            "prediction_start": "2011-06-10",
+            "prediction_end": "2011-09-07"
+        },
+        {
+            "name": "test",
+            "cutoff": "2011-09-09",
+            "prediction_start": "2011-09-10",
+            "prediction_end": "2011-12-08"
+        }
+    ],
+    "train_customers": 1847,
+    "validation_customers": 2800,
+    "test_customers": 3370,
+    "selected_model": "Logistic Regression",
+    "selected_threshold": 0.25,
+    "features": [
+        "Frequency",
+        "Monetary",
+        "Total_Quantity",
+        "Unique_Products",
+        "Active_Days",
+        "Recency",
+        "Average_Order_Value"
+    ]
+}
