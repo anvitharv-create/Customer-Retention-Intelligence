@@ -145,6 +145,17 @@ The dashboard will open in your browser.
 - Add retention campaign recommendations.
 - Deploy the dashboard online.
 
-## Disclaimer
 
-This project is intended for educational and portfolio purposes. Model predictions are estimates and should be validated before being used for real business decisions.
+## Dashboard Screenshots
+
+### 1. Analytics Overview
+![Analytics Overview](screenshots/analytics-overview.png)
+
+### 2. High-Risk Customers
+![High-Risk Customers](screenshots/high-risk-customers.png)
+
+### 3. Predict Churn
+![Predict Churn](screenshots/predict-churn.png)
+
+### 4. Model Performance
+![Model Performance](screenshots/model-performance.png)
