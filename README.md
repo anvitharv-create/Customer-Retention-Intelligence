@@ -206,5 +206,3 @@ The model provides predictions, not guarantees of future customer behavior. Busi
 
 *Built to demonstrate an end-to-end machine learning workflow, from retail data preprocessing and customer feature engineering to churn prediction, temporal model evaluation, and interactive analytics.*
 
-### 4. Model Performance
-![Model Performance](screenshots/model-performance.png)
