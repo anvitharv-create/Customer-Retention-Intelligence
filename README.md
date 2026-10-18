@@ -4,16 +4,16 @@ An end-to-end machine learning project that analyzes customer purchasing behavio
 
 ## Overview
 
-Customer retention is important for sustainable business growth. Losing existing customers can affect revenue and increase the cost of acquiring new customers.
+Customer retention is essential for sustainable business growth. Losing existing customers can reduce revenue and increase the cost of acquiring new customers.
 
-**Customer Retention Intelligence** uses historical retail transaction data to build a machine learning model that predicts customer churn. The project combines data preprocessing, customer-level feature engineering, model evaluation, and an interactive Streamlit dashboard to turn transaction data into actionable insights.
+**Customer Retention Intelligence** transforms historical retail transaction data into customer-level features and uses machine learning to predict potential churn. The project combines data preprocessing, feature engineering, model training, evaluation, and an interactive Streamlit dashboard to turn transaction data into actionable insights.
 
-The application allows users to explore customer behavior, identify high-risk customers, make churn predictions, and evaluate model performance.
+The dashboard enables users to explore customer behavior, identify high-risk customers, generate churn predictions, and review model performance.
 
 ## Live Demo
 
-- **GitHub Repository:** https://github.com/anvitharv-create/Customer-Retention-Intelligence
-- **Live Dashboard:** https://customer-retention-intelligence-69jqdy8zdbwmacrgmtvk7d.streamlit.app
+- **GitHub Repository:** [Customer Retention Intelligence](https://github.com/anvitharv-create/Customer-Retention-Intelligence)
+- **Live Dashboard:** [Open Streamlit App](https://customer-retention-intelligence-69jqdy8zdbwmacrgmtvk7d.streamlit.app)
 
 ## Dashboard Screenshots
 
@@ -45,7 +45,7 @@ Review model evaluation results and understand how effectively the model identif
 
 Retail businesses generate large amounts of transaction data, but historical purchases alone do not directly identify which customers may stop buying.
 
-This project addresses the problem by transforming transaction-level data into customer-level features and using machine learning to identify potential churn. The resulting insights can help businesses prioritize retention campaigns and make data-driven decisions.
+This project addresses the problem by transforming transaction-level data into customer-level features and applying machine learning to identify potential churn. These insights can help businesses prioritize retention efforts and make more informed decisions.
 
 ## Key Results
 
@@ -58,25 +58,27 @@ This project addresses the problem by transforming transaction-level data into c
 | Temporal test recall | 88.84% |
 | Temporal test F1-score | 68.18% |
 
-*The model metrics above are from the temporal evaluation of Logistic Regression at a selected probability threshold of 0.25. Results depend on the dataset, split, and threshold.*
+*The temporal evaluation results shown above are from Logistic Regression at a probability threshold of 0.25. These results belong to the temporal evaluation workflow and should not be confused with the separate random-split evaluation.*
 
 ## Key Features
 
 - **Customer Analytics:** Explore customer-level data and retention patterns.
-- **Churn Prediction:** Predict whether a customer is likely to churn using a trained machine learning model.
-- **High-Risk Customer Identification:** Support prioritization of customers for potential retention campaigns.
-- **Feature Engineering:** Convert retail transactions into customer-level predictive features.
-- **Model Evaluation:** Assess model performance using classification metrics and ROC-AUC.
-- **Temporal Evaluation:** Evaluate predictions using a time-based split to better reflect forecasting on future customers.
-- **Interactive Dashboard:** Explore the results through a Streamlit interface with Plotly visualizations.
+- **Churn Prediction:** Estimate whether a customer is likely to churn using a trained machine learning model.
+- **High-Risk Customer Identification:** Help prioritize customers for potential retention campaigns.
+- **Feature Engineering:** Transform retail transactions into customer-level predictive features.
+- **Model Comparison:** Compare Logistic Regression and Random Forest using validation metrics.
+- **Threshold Optimization:** Select a classification threshold based on validation F1-score.
+- **Model Evaluation:** Assess classification performance using ROC-AUC, precision, recall, F1-score, accuracy, and PR-AUC.
+- **Temporal Evaluation:** Evaluate model performance using a separate time-based evaluation workflow.
+- **Interactive Dashboard:** Explore analytics, predictions, high-risk customers, and model performance through Streamlit and Plotly.
 
 ## Dataset
 
-The project uses the **Online Retail dataset from the UCI Machine Learning Repository**.
+The project uses the **Online Retail dataset** from the UCI Machine Learning Repository.
 
 The dataset contains retail transaction records, including invoice information, product identifiers, quantities, invoice dates, unit prices, customer identifiers, and countries.
 
-The original transaction data was cleaned and transformed before customer-level features were created.
+The original transaction data is cleaned and transformed before customer-level features are generated.
 
 **Dataset source:** [UCI Machine Learning Repository — Online Retail](https://archive.ics.uci.edu/dataset/352/online+retail)
 
@@ -84,33 +86,44 @@ The original transaction data was cleaned and transformed before customer-level 
 
 1. **Data Collection:** Load the retail transaction dataset.
 2. **Data Cleaning:** Handle invalid records, missing values, and unsuitable transactions.
-3. **Feature Engineering:** Transform transaction data into customer-level features.
-4. **Model Training:** Train machine learning models for churn prediction.
-5. **Model Evaluation:** Evaluate performance using classification metrics and temporal testing.
-6. **Model Selection:** Use the selected trained model and probability threshold for predictions.
-7. **Dashboard Development:** Present customer analytics, high-risk customers, predictions, and evaluation results through Streamlit.
+3. **Feature Engineering:** Transform transaction data into customer-level predictive features.
+4. **Model Training:** Train Logistic Regression and Random Forest classifiers.
+5. **Model Comparison:** Compare the models using validation ROC-AUC.
+6. **Threshold Selection:** Select the decision threshold that achieves the highest validation F1-score among the tested thresholds.
+7. **Test Evaluation:** Evaluate the selected model on a separate test set.
+8. **Temporal Evaluation:** Assess performance on a later time period through the separate temporal evaluation workflow.
+9. **Dashboard Development:** Present customer analytics, high-risk customers, predictions, and model performance through Streamlit.
 
 ## Machine Learning Approach
 
-The project explores classification models to identify customers who may churn.
+The project implements two classification models to predict customer churn.
 
 ### Logistic Regression
 
-Logistic Regression estimates the probability of churn and provides a baseline classification model. The temporal evaluation achieved a ROC-AUC of 0.7426 and recall of 88.84% at the selected threshold of 0.25.
+Logistic Regression estimates the probability of customer churn and provides a classification baseline. The training pipeline uses median imputation, feature scaling, and class weighting.
+
+The separate temporal evaluation achieved a ROC-AUC of **0.7426** and recall of **88.84%** at a selected probability threshold of **0.25**.
 
 ### Random Forest
 
-Random Forest is included as an alternative classification approach that can capture nonlinear relationships between customer features and churn.
+Random Forest uses an ensemble of decision trees to capture nonlinear relationships between customer features and churn. Its training pipeline uses median imputation and class weighting.
+
+### Model Selection and Threshold Optimization
+
+The training script fits both models and compares their validation performance. The model with the highest validation ROC-AUC is selected.
+
+The script then tests multiple probability thresholds and selects the threshold with the highest validation F1-score. The selected model and threshold are evaluated on a separate test dataset.
+
+The random-split test results and temporal evaluation results are distinct evaluations and should be interpreted separately.
 
 ### Evaluation Metrics
 
-- **ROC-AUC:** Measures how well the model ranks churned and retained customers across thresholds.
+- **ROC-AUC:** Measures the model's ability to distinguish churned and retained customers across classification thresholds.
 - **Precision:** Measures the proportion of customers predicted to churn who actually churned.
 - **Recall:** Measures the proportion of actual churned customers correctly identified.
 - **F1-score:** Balances precision and recall.
 - **Accuracy:** Measures the proportion of all predictions that are correct.
-
-A temporal evaluation is especially useful because it tests the model on a later period rather than relying only on a random split.
+- **PR-AUC:** Summarizes precision-recall performance across classification thresholds.
 
 ## Technology Stack
 
@@ -147,7 +160,7 @@ python -m venv .venv
 
 ### 3. Activate the virtual environment
 
-Windows PowerShell:
+On Windows PowerShell:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
@@ -165,7 +178,9 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-The application should open in your browser. If the command fails, check the actual application entry-point filename and the setup instructions in the repository.
+The application should open in your browser. The project also contains scripts in the `src/` directory for data preparation, feature engineering, model training, evaluation, and analysis.
+
+**Note:** Running the training scripts requires the processed customer feature dataset at the expected project path. Follow the data preparation workflow before training the model if that file is not already available.
 
 ## Business Applications
 
@@ -177,32 +192,31 @@ The project demonstrates how machine learning can support:
 - Data-driven marketing and customer relationship management.
 - Evaluation of predictive models before using them in business workflows.
 
-The model provides predictions, not guarantees of future customer behavior. Business decisions should also consider the cost of retention campaigns and the consequences of incorrect predictions.
+Model predictions are estimates, not guarantees of future customer behavior. Business decisions should also consider the cost of retention campaigns and the consequences of incorrect predictions.
 
 ## Limitations
 
 - The model learns from historical retail transactions and may not capture every reason a customer stops purchasing.
-- Churn labels depend on the observation and prediction periods selected during feature engineering.
-- Evaluation results may change with different data splits, features, and classification thresholds.
-- The dataset represents a particular retail context, so performance may differ on other businesses or customer populations.
+- Churn labels depend on the observation and prediction periods defined during feature engineering.
+- Evaluation results can change with different data splits, features, and classification thresholds.
+- The dataset represents a particular retail context, so performance may differ across businesses and customer populations.
+- High recall does not necessarily mean high precision; the two metrics should be considered together when planning retention campaigns.
 
 ## Future Improvements
 
-- Add model comparison and hyperparameter tuning.
+- Add further model comparison and hyperparameter tuning.
 - Improve probability calibration and threshold selection based on business costs.
 - Add explainability features to show which factors influence churn predictions.
 - Incorporate additional customer demographics or marketing interaction data when available.
-- Add retention campaign recommendations and track their effectiveness.
-
+- Develop retention campaign recommendations and evaluate their effectiveness.
 
 ## Author
 
 **Anvitha R V**
 
-- GitHub: https://github.com/anvitharv-create
-- LinkedIn: https://linkedin.com/in/anvitharv
+- **GitHub:** [anvitharv-create](https://github.com/anvitharv-create)
+- **LinkedIn:** [anvitharv](https://linkedin.com/in/anvitharv)
 
 ---
 
-*Built to demonstrate an end-to-end machine learning workflow, from retail data preprocessing and customer feature engineering to churn prediction, temporal model evaluation, and interactive analytics.*
-
+*Built to demonstrate an end-to-end machine learning workflow, from retail data preprocessing and customer feature engineering to churn prediction, model evaluation, and interactive analytics.*
