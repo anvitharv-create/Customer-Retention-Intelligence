@@ -1,415 +1,198 @@
-# Supply Chain and Inventory Analysis Using Big Data Analytics
+# Customer Retention Intelligence
 
-An end-to-end supply chain analytics project using **Python, PySpark, Apache Spark, Spark SQL, Parquet, and Streamlit** to analyze product sales, warehouse performance, supplier activity, regional performance, and inventory reorder requirements through an interactive web dashboard.
+An end-to-end machine learning project that analyzes customer purchasing behavior, predicts customer churn, and helps businesses identify customers who may stop purchasing.
 
-**Live Dashboard:** [Open the Streamlit App](https://supply-chain-big-data-o9gobhu445vgvrbn2wvou5.streamlit.app)
+## Overview
 
-**GitHub Repository:** [Supply-Chain-Big-Data](https://github.com/anvitharv-create/Supply-Chain-Big-Data)
+Customer retention is important for sustainable business growth. Losing existing customers can affect revenue and increase the cost of acquiring new customers.
 
----
+**Customer Retention Intelligence** uses historical retail transaction data to build a machine learning model that predicts customer churn. The project combines data preprocessing, customer-level feature engineering, model evaluation, and an interactive Streamlit dashboard to turn transaction data into actionable insights.
 
-## Business Problem
+The application allows users to explore customer behavior, identify high-risk customers, make churn predictions, and evaluate model performance.
 
-Supply chain operations generate data about product sales, inventory levels, warehouses, suppliers, costs, prices, and demand forecasts. Analyzing these records manually can make it difficult to identify business patterns and inventory requirements.
+## Live Demo
 
-This project addresses that problem by building a data processing and analytics pipeline that transforms raw supply chain data into meaningful insights. It helps users compare product revenue, warehouse performance, supplier lead times, regional sales, and inventory records that meet predefined reorder conditions.
+- **GitHub Repository:** https://github.com/anvitharv-create/Customer-Retention-Intelligence
+- **Live Dashboard:** https://customer-retention-intelligence-69jqdy8zdbwmacrgmtvk7d.streamlit.app
 
-The results are presented through an interactive dashboard, allowing users to explore the data using filters, KPI cards, and visualizations.
+## Dashboard Screenshots
 
-## Key Insights
+### 1. Analytics Overview
 
-The following results were obtained from the project's dataset and analytical pipeline:
+Explore customer retention patterns, churn distribution, and key business metrics.
 
-- **Top product by revenue:** SKU_38, generating ₹1,057,641.51.
-- **Top warehouse by revenue:** WH_2, generating ₹7,395,653.40.
-- **Highest supplier order quantity:** SUP_7, with 239,283 units.
-- **Top region by revenue:** North, generating ₹8,411,171.01.
-- **Records requiring reorder:** 5,041.
-- **Records with sufficient stock:** 86,209.
-- **Data validation:** All 91,250 records passed the defined validation checks, with zero missing values, duplicate records, or invalid records.
+![Analytics Overview](screenshots/analytics-overview.png)
 
-**Business takeaway:** The results help users identify high-revenue products, compare warehouse and regional performance, examine supplier lead times, and prioritize inventory records that meet the defined reorder condition.
+### 2. High-Risk Customers
 
-*Note: These results describe the supplied dataset. The Stockout_Flag column contains no positive stockout records, so the project does not claim to have observed actual stockout events.*
+Identify customers who may be at risk of churning and prioritize them for retention efforts.
 
-## What This Project Delivers
+![High-Risk Customers](screenshots/high-risk-customers.png)
 
-### Data Ingestion
-- Loads the raw CSV dataset using PySpark.
-- Infers the data schema and converts the date field to an appropriate date type.
-- Inspects the record count, columns, schema, and sample records.
+### 3. Predict Churn
 
-### Data Validation
-- Checks for missing values and duplicate records.
-- Validates numerical fields and business rules.
-- Verifies the quality of the dataset before further processing.
+Use the trained machine learning model to estimate the likelihood of customer churn.
 
-### Feature Engineering
-Creates additional analytical fields:
+![Predict Churn](screenshots/predict-churn.png)
 
-- `Revenue`
-- `Total_Cost`
-- `Profit`
-- `Inventory_Value`
-- `Demand_Variance`
-- `Reorder_Status`
-- `Stock_Level_Category`
+### 4. Model Performance
 
-For example:
+Review model evaluation results and understand how effectively the model identifies potential churn.
 
-- Revenue = Units Sold × Unit Price
-- Total Cost = Units Sold × Unit Cost
-- Profit = Revenue − Total Cost
-- Inventory Value = Inventory Level × Unit Cost
-- Demand Variance = Units Sold − Demand Forecast
+![Model Performance](screenshots/model-performance.png)
 
-### Parquet Storage
-- Stores the processed dataset in Parquet format.
-- Keeps the raw dataset separate from processed data.
-- Allows the processed data to be reused for analysis.
+## Problem Statement
 
-### Product Analysis
-- Compares products using units sold, revenue, profit, and average inventory.
-- Identifies products with the highest revenue in the analyzed results.
+Retail businesses generate large amounts of transaction data, but historical purchases alone do not directly identify which customers may stop buying.
 
-### Warehouse Analysis
-- Compares warehouses by units sold, revenue, and inventory-related measures.
-- Helps users understand differences in warehouse performance.
+This project addresses the problem by transforming transaction-level data into customer-level features and using machine learning to identify potential churn. The resulting insights can help businesses prioritize retention campaigns and make data-driven decisions.
 
-### Supplier Analysis
-- Analyzes supplier lead times, order quantities, costs, and profit.
-- Supports comparisons between suppliers using the available metrics.
+## Key Results
 
-### Regional Analysis
-- Compares North, South, East, and West.
-- Examines regional units sold, revenue, profit, and average inventory.
+| Metric | Result |
+|---|---:|
+| Cleaned transaction records | 392,692 |
+| Customers in the feature dataset | 3,370 |
+| Customers labelled as churned | 43.06% |
+| Temporal test ROC-AUC | 0.7426 |
+| Temporal test recall | 88.84% |
+| Temporal test F1-score | 68.18% |
 
-### Reorder Analysis
-- Identifies records where inventory is less than or equal to the reorder point.
-- Groups records into `REORDER_REQUIRED` and `STOCK_SUFFICIENT`.
+*The model metrics above are from the temporal evaluation of Logistic Regression at a selected probability threshold of 0.25. Results depend on the dataset, split, and threshold.*
 
-### Spark SQL
-- Executes SQL-based analytical queries on the processed Spark DataFrame.
-- Provides separate queries for product, warehouse, supplier, and regional analysis.
+## Key Features
 
-### Interactive Dashboard
-- Displays KPI cards and interactive Plotly charts.
-- Provides dedicated analysis pages.
-- Supports filtering by region, product, warehouse, supplier, and time period.
-- Includes custom-day filtering and a Data Explorer for inspecting filtered records.
-
-## Dashboard
-
-The deployed Streamlit dashboard contains the following pages:
-
-1. **Dashboard** — Overall supply chain metrics.
-2. **Regional Analysis** — Regional sales, revenue, profit, and inventory.
-3. **Product Analysis** — Product-level performance.
-4. **Warehouse Analysis** — Warehouse-level performance and inventory measures.
-5. **Supplier Analysis** — Supplier lead times, order quantities, and profitability.
-6. **Reorder Analysis** — Inventory reorder status and related measures.
-7. **Data Explorer** — Filtered records and data exploration.
-
-**Try the dashboard:** [Supply Chain Analytics — Live Demo](https://supply-chain-big-data-o9gobhu445vgvrbn2wvou5.streamlit.app)
-
-## Tech Stack
-
-| Technology | Purpose |
-|---|---|
-| Python | Core programming language |
-| Apache Spark | Distributed data processing framework |
-| PySpark | Python interface for Spark DataFrame processing |
-| Spark SQL | SQL-based analytics |
-| Parquet | Processed-data storage |
-| Streamlit | Interactive web dashboard |
-| Pandas | Supporting data manipulation |
-| Plotly | Interactive charts and visualizations |
-| Git | Version control |
-| GitHub | Source code repository and project management |
-| VS Code | Development environment |
+- **Customer Analytics:** Explore customer-level data and retention patterns.
+- **Churn Prediction:** Predict whether a customer is likely to churn using a trained machine learning model.
+- **High-Risk Customer Identification:** Support prioritization of customers for potential retention campaigns.
+- **Feature Engineering:** Convert retail transactions into customer-level predictive features.
+- **Model Evaluation:** Assess model performance using classification metrics and ROC-AUC.
+- **Temporal Evaluation:** Evaluate predictions using a time-based split to better reflect forecasting on future customers.
+- **Interactive Dashboard:** Explore the results through a Streamlit interface with Plotly visualizations.
 
 ## Dataset
 
-- **Dataset:** High-Dimensional Supply Chain Inventory Dataset
-- **Source:** [Kaggle Dataset](https://www.kaggle.com/datasets/ziya07/high-dimensional-supply-chain-inventory-dataset)
-- **Original records:** 91,250
-- **Original columns:** 15
-- **Processed columns:** 22
-- **Missing values:** 0
-- **Duplicate records:** 0
-- **Invalid records under defined validation rules:** 0
+The project uses the **Online Retail dataset from the UCI Machine Learning Repository**.
 
-### Key Dataset Fields
+The dataset contains retail transaction records, including invoice information, product identifiers, quantities, invoice dates, unit prices, customer identifiers, and countries.
 
-| Field | Description |
-|---|---|
-| `Date` | Date associated with the record |
-| `SKU_ID` | Product identifier |
-| `Warehouse_ID` | Warehouse identifier |
-| `Supplier_ID` | Supplier identifier |
-| `Region` | Region associated with the record |
-| `Units_Sold` | Number of units sold |
-| `Inventory_Level` | Available inventory quantity |
-| `Supplier_Lead_Time_Days` | Supplier lead time in days |
-| `Reorder_Point` | Inventory threshold for reordering |
-| `Order_Quantity` | Quantity ordered |
-| `Unit_Cost` | Cost per unit |
-| `Unit_Price` | Selling price per unit |
-| `Promotion_Flag` | Promotion indicator |
-| `Stockout_Flag` | Stockout indicator |
-| `Demand_Forecast` | Forecasted demand |
+The original transaction data was cleaned and transformed before customer-level features were created.
 
-**Dataset limitation:** The dataset contains approximately 91,250 records. It demonstrates a Spark-based analytics workflow, but it should not be described as extremely large industrial Big Data. The same processing approach can be extended to larger datasets.
+**Dataset source:** [UCI Machine Learning Repository — Online Retail](https://archive.ics.uci.edu/dataset/352/online+retail)
 
 ## Project Workflow
 
-```text
-Raw CSV Dataset
-       |
-       v
-Data Ingestion using PySpark
-       |
-       v
-Data Validation
-       |
-       v
-Feature Engineering
-       |
-       v
-Processed Data in Parquet
-       |
-       v
-PySpark Analytics
-       |
-       v
-Spark SQL Analysis
-       |
-       v
-Product, Warehouse, Supplier,
-Regional and Reorder Analysis
-       |
-       v
-Interactive Streamlit Dashboard
-       |
-       v
-GitHub Repository and Deployment
-```
+1. **Data Collection:** Load the retail transaction dataset.
+2. **Data Cleaning:** Handle invalid records, missing values, and unsuitable transactions.
+3. **Feature Engineering:** Transform transaction data into customer-level features.
+4. **Model Training:** Train machine learning models for churn prediction.
+5. **Model Evaluation:** Evaluate performance using classification metrics and temporal testing.
+6. **Model Selection:** Use the selected trained model and probability threshold for predictions.
+7. **Dashboard Development:** Present customer analytics, high-risk customers, predictions, and evaluation results through Streamlit.
 
-### Why PySpark?
+## Machine Learning Approach
 
-PySpark provides DataFrame operations and transformations for processing structured data. It allows the project to demonstrate a Spark-based processing pipeline that can be extended to larger datasets.
+The project explores classification models to identify customers who may churn.
 
-### Why Parquet?
+### Logistic Regression
 
-Parquet is a columnar storage format suited to analytical workloads. It allows the project to store processed data separately from the raw CSV and reuse the processed dataset for subsequent analysis.
+Logistic Regression estimates the probability of churn and provides a baseline classification model. The temporal evaluation achieved a ROC-AUC of 0.7426 and recall of 88.84% at the selected threshold of 0.25.
 
-## Sample Spark SQL Queries
+### Random Forest
 
-The project registers the processed DataFrame as a temporary view named `supply_chain` within the Spark SQL analysis session.
+Random Forest is included as an alternative classification approach that can capture nonlinear relationships between customer features and churn.
 
-### 1. Records Requiring Reorder
+### Evaluation Metrics
 
-```sql
-SELECT
-    SKU_ID,
-    Warehouse_ID,
-    Inventory_Level,
-    Reorder_Point,
-    Reorder_Status
-FROM supply_chain
-WHERE Inventory_Level <= Reorder_Point
-ORDER BY Inventory_Level ASC;
-```
+- **ROC-AUC:** Measures how well the model ranks churned and retained customers across thresholds.
+- **Precision:** Measures the proportion of customers predicted to churn who actually churned.
+- **Recall:** Measures the proportion of actual churned customers correctly identified.
+- **F1-score:** Balances precision and recall.
+- **Accuracy:** Measures the proportion of all predictions that are correct.
 
-This query identifies records where the inventory level has reached or fallen below the defined reorder point.
+A temporal evaluation is especially useful because it tests the model on a later period rather than relying only on a random split.
 
-### 2. Supplier Lead-Time Analysis
+## Technology Stack
 
-```sql
-SELECT
-    Supplier_ID,
-    AVG(Supplier_Lead_Time_Days) AS avg_lead_time,
-    SUM(Order_Quantity) AS total_order_quantity,
-    SUM(Total_Cost) AS total_cost,
-    SUM(Profit) AS total_profit
-FROM supply_chain
-GROUP BY Supplier_ID
-ORDER BY avg_lead_time DESC;
-```
+| Category | Technologies |
+|---|---|
+| Programming Language | Python |
+| Data Processing | Pandas, NumPy |
+| Machine Learning | Scikit-learn |
+| Visualization | Plotly, Matplotlib |
+| Web Application | Streamlit |
+| Model Persistence | Joblib |
+| Development Tools | VS Code, Git, GitHub |
 
-This query compares suppliers using average lead time, order quantity, total cost, and profit.
-
-### 3. Regional Revenue Analysis
-
-```sql
-SELECT
-    Region,
-    SUM(Units_Sold) AS total_units_sold,
-    SUM(Revenue) AS total_revenue,
-    SUM(Profit) AS total_profit,
-    AVG(Inventory_Level) AS avg_inventory
-FROM supply_chain
-GROUP BY Region
-ORDER BY total_revenue DESC;
-```
-
-This query compares regional sales and profitability using the processed dataset.
-
-## Project Structure
-
-```text
-Supply-Chain-Big-Data/
-├── dashboard/
-│   └── app.py
-├── data/
-│   ├── raw/
-│   │   └── supply_chain_dataset1.csv
-│   ├── processed/
-│   │   └── supply_chain_processed/
-│   └── dashboard/
-├── docs/
-├── notebooks/
-├── output/
-├── sql/
-│   ├── product_analysis.sql
-│   ├── warehouse_analysis.sql
-│   ├── supplier_analysis.sql
-│   └── regional_analysis.sql
-├── src/
-│   ├── spark_test.py
-│   ├── data_ingestion.py
-│   ├── data_validation.py
-│   ├── feature_engineering.py
-│   ├── analytics.py
-│   ├── sql_analysis.py
-│   └── export_dashboard_data.py
-├── requirements.txt
-├── README.md
-└── .gitignore
-```
-
-*Note: The raw CSV and processed Parquet data must be available in their expected locations for the corresponding scripts to run. Generated data files may be excluded from Git depending on the repository configuration.*
-
-## How to Run Locally
+## Running the Project Locally
 
 ### Prerequisites
 
-- Python 3.12
-- Java installed and configured through `JAVA_HOME`
+- Python 3.12 or another compatible Python version
 - Git
-- The project dataset in the expected raw-data directory
+- pip
 
-The development environment for this project used Python 3.12.8, Java 25.0.2, and PySpark 4.2.0.
-
-### 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/anvitharv-create/Supply-Chain-Big-Data.git
-cd Supply-Chain-Big-Data
+git clone https://github.com/anvitharv-create/Customer-Retention-Intelligence.git
+cd Customer-Retention-Intelligence
 ```
 
-### 2. Create a Virtual Environment
+### 2. Create a virtual environment
 
-On Windows PowerShell:
+```bash
+python -m venv .venv
+```
+
+### 3. Activate the virtual environment
+
+Windows PowerShell:
 
 ```powershell
-python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-### 3. Install Dependencies
+### 4. Install dependencies
 
 ```bash
-python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Ensure Java is installed and `JAVA_HOME` is configured before running PySpark.
+### 5. Start the dashboard
 
-### 4. Test the Spark Installation
-
-```powershell
-python .\src\spark_test.py
+```bash
+streamlit run app.py
 ```
 
-### 5. Run the Data Processing Pipeline
+The application should open in your browser. If the command fails, check the actual application entry-point filename and the setup instructions in the repository.
 
-Run the following scripts from the project root, in order:
+## Business Applications
 
-```powershell
-python .\src\data_ingestion.py
-python .\src\data_validation.py
-python .\src\feature_engineering.py
-python .\src\analytics.py
-```
+The project demonstrates how machine learning can support:
 
-The feature-engineering step generates the processed Parquet dataset under:
+- Early identification of customers at risk of leaving.
+- Prioritization of customer retention campaigns.
+- Analysis of purchasing behavior and customer segments.
+- Data-driven marketing and customer relationship management.
+- Evaluation of predictive models before using them in business workflows.
 
-```text
-data/processed/supply_chain_processed
-```
+The model provides predictions, not guarantees of future customer behavior. Business decisions should also consider the cost of retention campaigns and the consequences of incorrect predictions.
 
-### 6. Run Spark SQL Analysis
+## Limitations
 
-For example:
-
-```powershell
-python .\src\sql_analysis.py .\sql\product_analysis.sql
-python .\src\sql_analysis.py .\sql\warehouse_analysis.sql
-python .\src\sql_analysis.py .\sql\supplier_analysis.sql
-python .\src\sql_analysis.py .\sql\regional_analysis.sql
-```
-
-### 7. Launch the Dashboard
-
-```powershell
-streamlit run .\dashboard\app.py
-```
-
-Streamlit will display a local URL in the terminal. Open that URL in your browser to explore the dashboard.
-
-## Results and Limitations
-
-### Results
-
-- Processed 91,250 source records through the defined validation workflow.
-- Created a feature-engineered dataset containing 22 columns.
-- Stored the processed data in Parquet format.
-- Implemented PySpark and Spark SQL analysis.
-- Developed an interactive dashboard with dedicated analytical pages.
-- Maintained the source code in GitHub.
-- Deployed the Streamlit dashboard as a web application.
-
-### Limitations
-
-- The dataset contains approximately 91,250 records and is not an extremely large industrial dataset.
-- The `Stockout_Flag` column contains no positive stockout records, preventing analysis of observed stockout events.
-- The current system primarily performs descriptive analytics and visualization; it does not implement a trained demand-forecasting model.
-- Reorder status is determined using the defined relationship between `Inventory_Level` and `Reorder_Point`.
-- The project does not establish supplier defect rates or order fulfillment reliability because the available data does not support those measurements.
-- The dashboard is an analytical application rather than a complete enterprise inventory management system.
+- The model learns from historical retail transactions and may not capture every reason a customer stops purchasing.
+- Churn labels depend on the observation and prediction periods selected during feature engineering.
+- Evaluation results may change with different data splits, features, and classification thresholds.
+- The dataset represents a particular retail context, so performance may differ on other businesses or customer populations.
 
 ## Future Improvements
 
-Potential extensions include:
-
-- Demand forecasting using machine learning.
-- Automated reorder alerts and replenishment recommendations.
-- Inventory optimization based on demand and supplier lead times.
-- Real-time data ingestion using streaming technologies such as Apache Kafka.
-- Cloud-based Spark processing for larger datasets.
-- Integration with live inventory databases.
-- Additional data-quality tests and automated reporting.
-
-## Author
-
-**Anvitha R V**
-
-GitHub: [anvitharv-create](https://github.com/anvitharv-create)
-
----
-
-*This project demonstrates an end-to-end analytics workflow combining data ingestion, validation, feature engineering, Parquet storage, PySpark processing, Spark SQL analysis, interactive visualization, version control, and web deployment.*
+- Add model comparison and hyperparameter tuning.
+- Improve probability calibration and threshold selection based on business costs.
+- Add explainability features to show which factors influence churn predictions.
+- Incorporate additional customer demographics or marketing interaction data when available.
+- Add retention campaign recommendations and track their effectiveness.
 
 
 ## Dashboard Screenshots
@@ -422,6 +205,17 @@ GitHub: [anvitharv-create](https://github.com/anvitharv-create)
 
 ### 3. Predict Churn
 ![Predict Churn](screenshots/predict-churn.png)
+
+## Author
+
+**Anvitha R V**
+
+- GitHub: https://github.com/anvitharv-create
+- LinkedIn: https://linkedin.com/in/anvitharv
+
+---
+
+*Built to demonstrate an end-to-end machine learning workflow, from retail data preprocessing and customer feature engineering to churn prediction, temporal model evaluation, and interactive analytics.*
 
 ### 4. Model Performance
 ![Model Performance](screenshots/model-performance.png)
