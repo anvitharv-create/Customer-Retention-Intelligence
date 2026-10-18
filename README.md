@@ -195,17 +195,6 @@ The model provides predictions, not guarantees of future customer behavior. Busi
 - Add retention campaign recommendations and track their effectiveness.
 
 
-## Dashboard Screenshots
-
-### 1. Analytics Overview
-![Analytics Overview](screenshots/analytics-overview.png)
-
-### 2. High-Risk Customers
-![High-Risk Customers](screenshots/high-risk-customers.png)
-
-### 3. Predict Churn
-![Predict Churn](screenshots/predict-churn.png)
-
 ## Author
 
 **Anvitha R V**
